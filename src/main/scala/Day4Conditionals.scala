@@ -71,14 +71,14 @@ object Day4Conditionals extends App {
 //  //so if you have 3 branches you want to explore we can chain the if else statements
 //
   val a = readLine("Give me an a! ").toDouble
-  if (a > 50) {
-    println(s"a is greater than 50, a is actually $a")
-  } else if (a < 50) {
-    println(s"a is less than 50, a is actually $a")
-  } else {
-    println(s"What do you know? a is exactly 50, just a double check a is $a") //what else could it be other than 50
-    //but with multi branches it is easy to make a mistake
-  }
+//  if (a > 50) {
+//    println(s"a is greater than 50, a is actually $a")
+//  } else if (a < 50) {
+//    println(s"a is less than 50, a is actually $a")
+//  } else {
+//    println(s"What do you know? a is exactly 50, just a double check a is $a") //what else could it be other than 50
+//    //but with multi branches it is easy to make a mistake
+//  }
 //
 //  //if you have more than 3 or 4 branches you should consider pattern matching which is another way of branching
 //
@@ -90,4 +90,22 @@ object Day4Conditionals extends App {
 //  //if we wanted to be sure it is integer we could put it in parenthesis and cast to Integer
 //  val minValue =  (if (a < b) a else b ).toInt //of course this covers a == b
 //  println(s"out of $a and $b the smallest is $minValue")
+
+  //in practice try to avoid having more than say 4 levels of nested ifs, they are hard to follow
+  //this is about max, if your business logic requires more, there are ways to refactor to simplify
+  if (a > 100) {
+    println(s"a is at least 101 $a")
+    if (a > 200) {
+      println(s"a is at least 201 $a")
+      if (a > 300) {
+        println(s"a is at least 301 $a")
+      } else {
+        println(s"a is over 200 but less than 301 -> $a")
+      }
+    } else {
+      println(s"a is over 100 but less than 201 $a")
+    }
+  } else {
+    println(s"a is less than 101 $a")
+  }
 }
