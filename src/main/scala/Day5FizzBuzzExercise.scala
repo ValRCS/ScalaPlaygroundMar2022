@@ -40,4 +40,34 @@ object Day5FizzBuzzExercise extends App {
   println("") //so newline
 //  println("*"*40) //just some stars as divider
   println(textBuffer)
+
+  println("Now with While Loop")
+
+  val step = 1
+  var n = start
+  textBuffer = "" //i need to reset text Buffer since I had some stuff from for Loop
+  while (n <= end) {
+    if (n % fizzNum == 0 && n % buzzNum == 0) {
+      print(fizzText+buzzText)
+      textBuffer += fizzText+buzzText
+    } else if (n % fizzNum == 0) {
+      print(fizzText)
+      textBuffer += fizzText
+
+    } else if (n % buzzNum == 0) {
+      print(buzzText)
+      textBuffer += buzzText
+    } else {
+      print(n) //when printing I do not need to convert to String, because print will do it for us
+      textBuffer += n.toString //we need to convert the number to string before string concatenation
+    }
+    if (n < end) {
+      print(",")
+      textBuffer += ","
+    }
+    //in a while loop it is crucial that we increase whatever we are checking in while condition here it is n
+    n += step //so while loop is a bit longer to write
+  }
+  println("")
+  println(textBuffer)
 }
