@@ -97,6 +97,7 @@ object Day5ForLoops extends App {
   var oddNumberSum = 0
   var evenNumberSum = 0
   for (n <- 0 to 50) {
+    println(s"$n divided by 2 = ${n/2} reminder is ${n%2}")
     if (n % 2 == 0) {
       evenNumberSum+=n
     } else { //so odd here
