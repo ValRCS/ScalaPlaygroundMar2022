@@ -1,11 +1,32 @@
+import scala.io.StdIn.readLine
+
 object Day6CityPopulation extends App {
   //easy function
   //TODO write a function (name it yourself) to calculate Farenheit from Celsius
   //f = 32 + c*9/5
 
   //test it with 36.6
+
   //test it with 37
   //test it with 48.5
+  def celsiusToFahrenheit(celsius: Double, precision: Int=2):Double= {
+    //I could have done this in one line without curly braces
+    MyUtil.myRound(32 + celsius*9/5, precision) //so I am returning already rounded and calculated value
+  }
+
+  //so idea is that readLine, println, all of those we would leave for other functions
+  //our little conversion function would only worry about the calculations
+  println(celsiusToFahrenheit(36.6))
+  println(celsiusToFahrenheit(37))
+  println(celsiusToFahrenheit(48.5))
+
+  def temperatureCalculationApp(): Unit = {
+    val celsius = readLine("What is temperature in Celsius? ").toDouble
+    val fahrenheit = celsiusToFahrenheit(celsius) //it is often a good practice to keep the same names as we are passing
+    //however i could have named this celsius something else
+    println(s"$celsius of Celsius is $fahrenheit of Fahrenheit.")
+  }
+  temperatureCalculationApp() //no parameters required so no need for parenthesis
 
   //TODO 2nd main TASK - not really related to first task
   println("Function to calculate city growth")
