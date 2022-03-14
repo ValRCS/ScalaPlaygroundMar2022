@@ -104,6 +104,8 @@ object Day7Strings extends App {
   //you can also use + to concatenate strings
   val newString = myName + " likes " + food
   println(newString)
-
   //to cover when we learn about sequence is how to split a string and join a string
+
+  println(" "*10+"*"*5) //this can save a lot of looping time for certain tasks
+
 }
