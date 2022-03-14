@@ -6,12 +6,7 @@ object Day7ExerciseSolved extends App {
     //you will probably want to use var to store a temporary string that you keep reweriting
     //return newly created string
 
-    var trimmedString = ""
-    if (needsTrim) {
-      trimmedString = text.trim
-    } else {
-      trimmedString = text
-    }
+    val trimmedString = if (needsTrim) text.trim else text
 
     var newString = "" //so I start with an empty string and build it up
     //this approach with an empty string is completely fine on smaller strings say a few hundred characters long
