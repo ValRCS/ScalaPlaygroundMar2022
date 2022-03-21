@@ -77,5 +77,17 @@ object Day8Sequences extends App {
   //again generelly we want to avoid using mutable structures unless it is hard to avoid them
   //so far these are immutable Sequences, just like our strings, we can not change them, we can make new ones
 
+  println(numbers)
+  val firstThree = numbers.take(3) //so numbers.slice(0,3) would work as well
+  println(firstThree)
+  val allButFirstFour = numbers.drop(4) //returns everything but the first four elements
+  println(allButFirstFour)
+
+  println(numbers.mkString(",")) //makes a string out of sequence with separator between , here it is comma
+  println(numbers.mkString("[", ",", "]")) //we start with [ then commas and end with ]
+
+  val myNumberString = numbers.mkString("[", ",", "]")
+  println(myNumberString)
+
 
 }
