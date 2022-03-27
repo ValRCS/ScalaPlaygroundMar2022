@@ -73,6 +73,53 @@ object Day11Sets extends App {
 
   //we saw how we can add and remove items to sets next step will be to explore some operations from set theory
 
+  val n1to5 = (1 to 5).toSet
+  val n3to7 = (3 to 7).toSet
+  println(n1to5)
+  println(n3to7)
 
+  //with intersection we want ALL elements that are common in BOTH sets
+  val n3to5 = n1to5 intersect n3to7
+  val n3to5Also = n1to5 & n3to7 //same as above , notice a single &
+  println(n3to5)
+  println(n3to5Also)
+
+  //we can also perform a union, which means we get ALL unique values across BOTH sets
+  val n1to7 = n1to5 union n3to7
+  val n1to7Also = n3to7 | n1to5 //same as above, notice the single | instead of || in logical or
+  println(n1to7)
+  println(n1to7Also)
+
+
+  val multipleUnion = n3to7 | setWithMultipleAdditions | n1to5 //we can union across multiple sets
+  println(multipleUnion)
+  //so we can also use intersection across multiple sets
+
+  //difference (not symmetrical!)
+  val n1to2 = n1to5 diff n3to7
+  val n6to7 = n3to7 -- n1to5 //same operation as above, but not the same result! not symmetrical!
+  println(n1to2)
+  println(n6to7)
+
+  //if symmetrical difference does not exist in Scala collection we can make it really easily ourselves
+  //we create a union of BOTh differences we took earlier
+  val symDiff = n1to2 union n6to7
+  println(symDiff)
+
+  //we can check if set is a subset of another set
+  println(s"$n1to2 is subset of $n1to7 ? ${n1to2.subsetOf(n1to7)}")
+  println(s"$n1to2 is subset of $n6to7 ? ${n1to2.subsetOf(n6to7)}")
+
+  //useful to get unique characters
+  val uniqueCharSet = "abracadabra".toSet
+  println(uniqueCharSet)
+
+  val sentence = "See Spot run. Run, Spot run!"
+  val words = sentence.split(" ")
+  val uniqueWords = words.toSet
+  println(words.mkString(" ")) //in effect reconstructing the original text
+  println(uniqueWords)
+
+  //TODO some exercise to practice our newfound Set operation skills
 
 }
