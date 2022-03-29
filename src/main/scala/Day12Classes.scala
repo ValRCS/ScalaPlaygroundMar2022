@@ -108,5 +108,8 @@ object Day12Classes extends App {
   //methods
   //public vs private
 
+  val rose = new Flower("rose", "red")
+  println(rose.color) //flowerType is not accesible without methods
+
 
 }
