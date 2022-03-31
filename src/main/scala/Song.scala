@@ -53,5 +53,7 @@ class Rap(title:String, author:String, lyrics: Seq[String])
   //now any Rap will have access to ALL Song methods and values /fields
   def dropIt(drop:String, maxLines:Int = -1): Unit = {
     println(s"Dropping some beats with $drop on $title")
+    //TODO actually add drop in between words for each line
+    //TODO  you want to split each line in words
   }
 }
