@@ -10,38 +10,43 @@ class Song(title: String = "", author: String= "", lyrics:Seq[String]){
 //
 //  }
 
-  def sing(maxLines: Int = -1):Unit = {
-    println("-"*20)
-    if (author != "") print(s"$author")
-    if (title != "") print(s" - $title\n")
-    println("-"*20)
-
+  //internal utility function
+  private def printLyrics(lines:Seq[String], maxLines: Int = -1):Unit = {
     if ((maxLines == -1) || (maxLines > lyrics.length)) {
-      for (line <- lyrics) {
+      for (line <- lines) {
         println(line)
       }
     } else {
-      for (line <- lyrics.take(maxLines)) {
+      for (line <- lines.take(maxLines)) {
         println(line)
       }
     }
   }
 
-  def yell(maxLines: Int = -1):Unit = {
+  //private unless we want to allow outside use of this function
+  private def printTitle():Unit = {
     println("-"*20)
     if (author != "") print(s"$author")
     if (title != "") print(s" - $title\n")
     println("-"*20)
+  }
 
-    if ((maxLines == -1) || (maxLines > lyrics.length)) {
-      for (line <- lyrics) {
-        println(line)
-      }
-    } else {
-      for (line <- lyrics.take(maxLines)) {
-        println(line.toUpperCase)
-      }
-    }
+  def sing(maxLines: Int = -1):Unit = {
+    printTitle()
+    printLyrics(lyrics, maxLines) //sometimes these pass along chains can get too long 3 or 4 functions deep
+  }
+
+  def yell(maxLines: Int = -1):Unit = {
+    printTitle()
+    val capitalLyrics = lyrics.map(_.toUpperCase)
+    printLyrics(capitalLyrics, maxLines)
+  }
+
+  //it is now trivial to add a similar whisper function
+  def whisper(maxLines: Int = -1):Unit = {
+    printTitle()
+    val capitalLyrics = lyrics.map(_.toLowerCase)
+    printLyrics(capitalLyrics, maxLines)
   }
 
 }
