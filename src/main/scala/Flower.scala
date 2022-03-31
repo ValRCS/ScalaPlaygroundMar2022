@@ -3,3 +3,4 @@ class Flower(flowerType:String, val color:String) {
   //more methods here
   //more construction work here
 }
+
