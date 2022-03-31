@@ -35,4 +35,16 @@ object Day13SongExerciseSolved extends App {
   lambada.sing(2)
 
   journey.yell(3)
+
+  lambada.sing(2).yell(3).whisper(2).sing() //I could chain more as long
+  //as long as these methods return Song object - in this case this very Song
+
+
+  val chaotic = new Rap("Chaotic",
+    "Tate McRae",
+    Array("I have this paralyzing fear that I'll maybe go nowhere",
+      "But God forbid me ever admitting I could be scared"))
+
+  chaotic.sing().yell(2).whisper(1) //this returns Song so dropIt is not available
+  chaotic.dropIt("Oh yea")
 }
