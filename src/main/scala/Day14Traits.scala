@@ -93,5 +93,24 @@ object Day14Traits extends App {
   minka.speak()
   minka.comeToMaster()
 
+  println("Let's order lots of pizza")
+  val smallPizza = new SmallPizza()
+  println(smallPizza.maxNumToppings)
+  val mediumPizza = new MediumPizza()
+  println(mediumPizza.maxNumToppings)
+  mediumPizza.maxNumToppings = mediumPizza.maxNumToppings + 5
+  println(mediumPizza.maxNumToppings)
+  //so above + 5 can be written in a shorter way
+  mediumPizza.maxNumToppings += 12 //same as +5 line
+  println(mediumPizza.maxNumToppings)
+  val largePizza = new LargePizza()
+  println(largePizza.maxNumToppings) //not val but method but result is the same - fixed result
 
+  val customPizza = new CustomPizza(17)
+  println(customPizza.maxNumToppings)
+  val superCustomPizza = new AlsoCustomPizza(10)
+  //println(superCustomPizza.myToppingCount) //no public access to parameters without var or val
+  println(superCustomPizza.maxNumToppings)
+  superCustomPizza.maxNumToppings += 77 // i can mutate since I set the field as var
+  println(superCustomPizza.maxNumToppings)
 }
