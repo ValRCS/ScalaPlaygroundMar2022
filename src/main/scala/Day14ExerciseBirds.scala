@@ -16,6 +16,12 @@
 
 //BONUS maybe make some more birds? :)
 
+
+//traits and classes go here (or in a separate file)
+
 object Day14ExerciseBirds extends App {
   println("Let's create some birds using traits!")
+
+  //object creation goes here
+
 }
