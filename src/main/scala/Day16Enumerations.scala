@@ -45,8 +45,8 @@ object Day16Enumerations extends App {
   println(isRude(Fingers.Ring))
   println(isRude(Fingers.Middle)) //this is rude indeed
 
-  //Your Task is to create an enumeration of days of the week
-  //create and outside to check if it is weekend - so similar logic to what we did in the last lecture pattern matching
+  //TODO Your Task is to create an enumeration of days of the week
+  //create an method (outside Days enumeration)to check if it is weekend - so similar logic to what we did in the last lecture pattern matching
   //here the difference that we are using specific enums
 
 }
