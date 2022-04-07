@@ -1,3 +1,5 @@
+import com.github.ValRCS.MyUtil
+
 import scala.util.Random
 
 object Day8StringSplitting extends App {

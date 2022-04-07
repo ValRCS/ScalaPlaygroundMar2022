@@ -1,3 +1,5 @@
+import com.github.ValRCS.MyUtil
+
 import scala.io.StdIn.readLine
 
 object Day6CityPopulation extends App {

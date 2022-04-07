@@ -1,4 +1,5 @@
-import MyUtil.myRound
+import com.github.ValRCS.MyUtil
+import com.github.ValRCS.MyUtil.myRound
 
 object Day6Functions extends App {
   println("Let's go eat something!")
