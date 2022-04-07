@@ -13,7 +13,7 @@ object Day6CityPopulation extends App {
   //test it with 48.5
   def celsiusToFahrenheit(celsius: Double, precision: Int = 2): Double = {
     //I could have done this in one line without curly braces
-    MyUtil.myRound(32 + celsius * 9 / 5, precision) //so I am returning already rounded and calculated value
+    Util.myRound(32 + celsius * 9 / 5, precision) //so I am returning already rounded and calculated value
   }
 
   //so idea is that readLine, println, all of those we would leave for other functions

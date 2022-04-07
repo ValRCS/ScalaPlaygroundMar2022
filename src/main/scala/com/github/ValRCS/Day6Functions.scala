@@ -1,6 +1,6 @@
 package com.github.ValRCS
 
-import com.github.ValRCS.MyUtil.myRound
+import com.github.ValRCS.Util.myRound
 
 object Day6Functions extends App {
   println("Let's go eat something!")
@@ -68,7 +68,7 @@ object Day6Functions extends App {
   val a = 500 //this is global to my object and does not conflict with the function parameters a and b
 
   //how about actually getting something useful out of a function for later use
-  def add(a: Int, b: Int) = {
+  def add(a: Int, b: Int): Int = {
     //these a and b are local to the function and do not interefere with the other a and b from printAdd(which also has local versions)
     //i could println something here but It is not required
     a + b //in Scala I do not need to type unlike most languages // the last which provides a value gives return automatically
@@ -111,7 +111,7 @@ object Day6Functions extends App {
 
 
   //full syntax would work
-  println(MyUtil.myRound(3.1415926)) //technically this is what we wanted because default is 0 precision after comma
+  println(Util.myRound(3.1415926)) //technically this is what we wanted because default is 0 precision after comma
   //more convenient to import this functionality from the other object (just like we did with readLine etc)
 
   println(myRound(3.1415926, 2))

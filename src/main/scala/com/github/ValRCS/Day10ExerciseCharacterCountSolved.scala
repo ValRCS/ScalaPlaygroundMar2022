@@ -71,24 +71,24 @@ object Day10ExerciseCharacterCountSolved extends App {
   val t0 = System.nanoTime()
   val resMap = countCharsByCounting(longText)
   val t1 = System.nanoTime()
-  MyUtil.printDeltaMs(t0, t1, "Counting by actually counting each char")
+  Util.printDeltaMs(t0, t1, "Counting by actually counting each char")
 
   val t2 = System.nanoTime()
   val resMap2 = countCharsByBuckets(longText)
   val t3 = System.nanoTime()
-  MyUtil.printDeltaMs(t2, t3, "Counting by buckets")
+  Util.printDeltaMs(t2, t3, "Counting by buckets")
 
   val hugeText = "A quick brown fox jumped over a sleeping dog" * 1_000_000
   println(s" Huge text is ${hugeText.length} characters long")
   val t4 = System.nanoTime()
   val resMap3 = countCharsByBuckets(hugeText)
   val t5 = System.nanoTime()
-  MyUtil.printDeltaMs(t4, t5, "Counting by buckets huge text")
+  Util.printDeltaMs(t4, t5, "Counting by buckets huge text")
   println(resMap3)
 
   val t6 = System.nanoTime()
   val resMap4 = countCharsByBuckets(hugeText, lower = true)
   val t7 = System.nanoTime()
-  MyUtil.printDeltaMs(t6, t7, "Counting by buckets huge text lower only")
+  Util.printDeltaMs(t6, t7, "Counting by buckets huge text lower only")
   println(resMap4)
 }

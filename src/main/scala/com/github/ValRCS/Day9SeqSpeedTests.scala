@@ -1,6 +1,6 @@
 package com.github.ValRCS
 
-import com.github.ValRCS.MyUtil.printDeltaMs
+import com.github.ValRCS.Util.printDeltaMs
 
 import java.lang.System.nanoTime
 import scala.collection.mutable.ArrayBuffer

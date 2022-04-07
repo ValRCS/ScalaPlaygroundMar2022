@@ -1,6 +1,6 @@
 package com.github.ValRCS
 
-object MyUtil {
+object Util {
   //we are not going to use this directly thus not extends App
   //we will keep useful Utilities inside
 

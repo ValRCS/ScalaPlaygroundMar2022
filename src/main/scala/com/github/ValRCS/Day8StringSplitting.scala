@@ -22,7 +22,7 @@ object Day8StringSplitting extends App {
 
   val totalCharacters = wordLengths.sum //so sum will work on numeric sequences
   val wordCount = words.length //pretty much any sequence
-  val averageCharacters = MyUtil.myRound(totalCharacters.toDouble / wordCount, precision = 4)
+  val averageCharacters = Util.myRound(totalCharacters.toDouble / wordCount, precision = 4)
   println(s"My sentence of $wordCount words has $totalCharacters for average character count of $averageCharacters")
 
   println(words.count(item => item.equals("port"))) //so we check each item in our sequence for or predicate
