@@ -1,5 +1,7 @@
 package com.github.ValRCS
 
+import scala.io.Source
+
 object Util {
   //we are not going to use this directly thus not extends App
   //we will keep useful Utilities inside
@@ -32,5 +34,20 @@ object Util {
   def printDeltaMs(t0: Long, t1: Long, taskName: String = "", precision: Int = 3): Unit = {
     val ms = deltaMs(t0, t1, precision = precision)
     println(s"It took $ms milliseconds to run the task: $taskName")
+  }
+
+
+  def getTextFromFile(src: String):String = {
+    val bufferedSource = Source.fromFile(src)
+    val text = bufferedSource.mkString
+    bufferedSource.close()
+    text
+  }
+
+  def getLinesFromFile(src: String):Array[String] = {
+    val bufferedSource = Source.fromFile(src)
+    val lines = bufferedSource.getLines().toArray
+    bufferedSource.close()
+    lines
   }
 }

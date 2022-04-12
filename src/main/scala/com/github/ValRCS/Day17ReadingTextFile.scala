@@ -1,5 +1,7 @@
 package com.github.ValRCS
 
+import com.github.ValRCS.Util.{getLinesFromFile, getTextFromFile}
+
 import scala.io.Source
 
 object Day17ReadingTextFile extends App {
@@ -34,24 +36,11 @@ object Day17ReadingTextFile extends App {
 //
 //  for (line <- myPoemLines) println(line)
 
-  //TODO move me to Utilities
-  def getTextFromFile(src: String):String = {
-    val bufferedSource = Source.fromFile(src)
-    val text = bufferedSource.mkString
-    bufferedSource.close()
-    text
-  }
+
 
   val myText = getTextFromFile(relativeFilePath)
   println(myText)
 
-  //TODO move me to Utilities
-  def getLinesFromFile(src: String):Array[String] = {
-    val bufferedSource = Source.fromFile(src)
-    val lines = bufferedSource.getLines().toArray
-    bufferedSource.close()
-    lines
-  }
 
   val maxLines = 5
   println(s"FIRST $maxLines lines")
