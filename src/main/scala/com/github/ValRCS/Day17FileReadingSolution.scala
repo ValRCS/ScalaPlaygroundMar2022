@@ -1,5 +1,6 @@
 package com.github.ValRCS
 
+import scala.collection.mutable.ArrayBuffer
 import scala.io.Source
 
 object Day17FileReadingSolution extends App {
@@ -43,5 +44,46 @@ object Day17FileReadingSolution extends App {
   //alternative way to filter what we need
   val woodLines = myLines.filter(_.contains("woods")).map(_.toUpperCase)
   woodLines.foreach(println)
+
+  val outputString = myLines.head +
+    "\n" +
+    poetName +
+    "\n" +
+    woodLines.mkString("\n")
+
+  //for building longer strings we might want to use a string buffer instead of creating a string each time
+  //here are some good examples
+
+  //https://www.baeldung.com/scala/stringbuilder
+
+  val stringBuilder = new StringBuilder()
+  stringBuilder ++= myLines.head
+  stringBuilder += '\n' //for single characters  of course ++= "\n" would work as well
+  stringBuilder ++= poetName
+  stringBuilder ++= "\n"
+  stringBuilder ++= woodLines.mkString("\n")
+
+  println("WE built a string, this is recommended for longer texts")
+  println(stringBuilder.mkString)
+
+
+
+  Util.saveText("src/resources/woods.txt",outputString)
+
+  val myBuffer = ArrayBuffer[String]()
+  myBuffer += myLines.head
+  myBuffer += poetName
+  myBuffer ++= woodLines //we are adding another array
+
+  Util.saveLines("src/resources/woods_arr.txt", myBuffer.toArray)
+
+  //we can also append to an already existing file
+  Util.saveLines("src/resources/woods_arr.txt", Array("*"*30, "Hurray","hurray"), append = true)
+  Util.saveLines("src/resources/woods_arr.txt",
+    Array("*"*30, "aha","oho"),
+    append = true,
+    lineEnd = "\n\uD83D\uDE05\n" //so this is unicode for a smiley takes 4 bytes actually using \u
+
+  )
 
 }

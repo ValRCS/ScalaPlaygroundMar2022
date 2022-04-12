@@ -1,5 +1,6 @@
 package com.github.ValRCS
 
+import java.io.FileWriter
 import scala.io.Source
 
 object Util {
@@ -38,9 +39,9 @@ object Util {
 
 
   def getTextFromFile(src: String):String = {
-    val bufferedSource = Source.fromFile(src)
-    val text = bufferedSource.mkString
-    bufferedSource.close()
+    val bufferedSource = Source.fromFile(src) //think of bufferedSource as a stream of bytes
+    val text = bufferedSource.mkString //we convert this stream into actual string
+    bufferedSource.close() //important to close the file
     text
   }
 
@@ -49,5 +50,32 @@ object Util {
     val lines = bufferedSource.getLines().toArray
     bufferedSource.close()
     lines
+  }
+
+  /**
+   *
+   * @param dstPath - save Path
+   * @param text - string to save
+   */
+  def saveText(dstPath: String, text: String, append:Boolean=false, verbose:Boolean=false):Unit = {
+    //    import java.io.{PrintWriter, File} //explicit import
+    if (verbose) println(s"Saving ${text.length} characters to $dstPath")
+    //so writing to file can be done either by overwriting the whole file (the default)
+    //or by appending to the end of the file
+    val fw = new FileWriter(dstPath, append) //so by default old dstPath will be overWritten
+    //    val pw = new PrintWriter(new File(dstPath))
+    if (append) fw.write("\n") //TODO think about appending custom header
+    fw.write(text)
+    fw.close() //when writing it is especially important to close as early as possible
+  }
+
+  /**
+   *
+   * @param dstPath - save Path
+   * @param lines - array of Strings to save
+   *              overwrites old file by default
+   */
+  def saveLines(dstPath: String, lines: Array[String], append:Boolean=false, lineEnd:String="\n"):Unit = {
+    saveText(dstPath, lines.mkString(lineEnd), append)
   }
 }
