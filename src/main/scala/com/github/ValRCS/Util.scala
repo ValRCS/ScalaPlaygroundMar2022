@@ -78,4 +78,26 @@ object Util {
   def saveLines(dstPath: String, lines: Array[String], append:Boolean=false, lineEnd:String="\n"):Unit = {
     saveText(dstPath, lines.mkString(lineEnd), append)
   }
+
+  /**
+   *
+   * @param url - web resource locator
+   * @return - we return the whole web page as string
+   */
+  def getTextFromWeb(url: String): String = {
+    val html = Source.fromURL(url) //this gets us BuffereSource stream
+    html.mkString //so we just get a string representation it could be pure txt, it be html, it be xml,
+  }
+
+  /**
+   *
+   * @param url - web resource locator
+   * @param dst - destination file path
+   * @return - returns text string from the url (could be txt, html, xml, json, etc)
+   */
+  def getTextFromWebAndSave(url: String, dst: String):String = {
+    val text = getTextFromWeb(url)
+    saveText(dst, text)
+    text //we return the text just in case we want to save and do some work as well
+  }
 }
