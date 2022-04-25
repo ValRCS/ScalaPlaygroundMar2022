@@ -55,4 +55,44 @@ object Day20CSVExerciseSolved extends App {
   println(s"Min cherry tomatoes price in 2021 is ${cherrytomatoes2021.map(_.price).min}")
   val cherrytomatoes2022mean = Util.myRound(cherrytomatoes2021.map(_.price).sum/cherrytomatoes2021.map(_.price).length,2)
   println(s"Average(mean) cherry tomatoes price in 2021 is $cherrytomatoes2022mean")
+
+  def getAverage(veggies: Array[Veggie], item: String="", year: Int=0, precision:Int=2):Double = {
+//    val filteredItems = veggies.filter(_.variety == item).filter(_.date.contains(year.toString)) //before we had year value
+    val filteredItems = if (item != "" && year != 0) veggies.filter(_.item == item).filter(_.year == year) else veggies
+    Util.myRound(filteredItems.map(_.price).sum/filteredItems.length,precision)
+  }
+
+  val minDate = veggies.map(_.date).min
+  val maxDate = veggies.map(_.date).max
+
+  println(s"Data coverage starts at $minDate and ends in $maxDate")
+
+  val minYear = veggies.map(_.year).min
+  val maxYear = veggies.map(_.year).max
+
+  println(s"Data coverage starts at $minYear and ends in $maxYear")
+
+  val lettuceAverages = (for (year <- minYear to maxYear) yield {
+    val avg = getAverage(veggies, "lettuce", year)
+    println(s"Average for year: $year is $avg") //a side effect while we are making an array, generally we avoid sideeffects
+    avg
+    }
+    ).toArray
+
+
+  val strawberries22 = getAverage(veggies, "strawberries", 2022)
+  println(strawberries22)
+
+  println(getAverage(veggies, "lettuce", 2021))
+  println(getAverage(veggies, "cucumbers", 2021))
+
+
+  val lettuceGroupedByYear = veggies.filter(_.item == "lettuce").groupBy(_.year)
+
+  for ((key,value) <- lettuceGroupedByYear) {
+    println(s"For year $key the lettuce average is ${getAverage(value)}")
+  }
+
+
+
 }
