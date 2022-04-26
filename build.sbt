@@ -6,3 +6,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "ScalaPlaygroundMar2022"
   )
+
+// https://mvnrepository.com/artifact/com.lihaoyi/upickle
+libraryDependencies += "com.lihaoyi" %% "upickle" % "1.6.0"
+//i am saying I want this library included in my project above
