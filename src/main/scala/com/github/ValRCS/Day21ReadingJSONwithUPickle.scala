@@ -22,10 +22,18 @@ object Day21ReadingJSONwithUPickle extends App {
       o("family").str,
       o("order").str,
       o("nutritions")("carbohydrates").num //so Double by default
-
+      //TODO add the rest of the fields proteins etc
     )
   }
 
   fruits.take(3).foreach(println)
+
+  //TODO find most calorie dense fruit - it looks the data is per 100grams maybe someone can verify this?
+  //TODO find top 5 fattiest fruits
+  //TODO find top 5 protein sources for fruits
+  //TODO find 5 least sugary fruits
+  //TODO find 5 fruits with most carbohydrates that are not sugars (so difference between carbohydrates and sugar)
+
+  //you can add some extra conclusions, statistics as well
 
 }
