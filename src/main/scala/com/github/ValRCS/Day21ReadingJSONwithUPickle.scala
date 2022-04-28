@@ -21,19 +21,52 @@ object Day21ReadingJSONwithUPickle extends App {
       o("id").num.toInt,
       o("family").str,
       o("order").str,
-      o("nutritions")("carbohydrates").num //so Double by default
+      o("nutritions")("carbohydrates").num, //so Double by default
       //TODO add the rest of the fields proteins etc
+      o("nutritions")("sugar").num,
+      o("nutritions")("protein").num,
+      o("nutritions")("fat").num,
+      o("nutritions")("calories").num
     )
   }
 
   fruits.take(3).foreach(println)
 
+  val highCalFruits =  fruits.sortBy(_.calories)
+
+  println(s"The highest calories per 100g is ${highCalFruits.reverse.head} ")
+
   //TODO find most calorie dense fruit - it looks the data is per 100grams maybe someone can verify this?
   //TODO find top 5 fattiest fruits
+  val topFatFruits =  fruits.sortBy(_.fat)
+  println(s"The highest fat content per 100g: ")
+  topFatFruits.reverse.take(5).foreach(println) //here it is println(_)
+  topFatFruits.reverse.take(5).foreach(_.prettyPrint())
+
   //TODO find top 5 protein sources for fruits
+  //TODO find top 5 protein sources for fruits
+  val topProteinFruits =  fruits.sortBy(_.protein)
+  println(s"The highest protein content per 100g: ")
+  topProteinFruits.reverse.take(5).foreach(_.prettyPrint())
   //TODO find 5 least sugary fruits
+  val minSugarFruits =  fruits.sortBy(_.sugar)
+  println(s"The lowest sugar  content per 100g: ")
+  minSugarFruits.take(5).foreach(_.prettyPrint())
+
   //TODO find 5 fruits with most carbohydrates that are not sugars (so difference between carbohydrates and sugar)
 
   //you can add some extra conclusions, statistics as well
+  val nonSugarCarbs=fruits.sortBy(_.nonSugarCarbs)
+  println(s"The highest non sugar carbohydrates per 100g: ")
+  nonSugarCarbs.reverse.take(5).foreach(_.prettyPrint())
 
+  //we create a JSON string without a library
+  val jsonString = "[" + fruits.map(_.getJSON()).mkString(",\n") + "]"
+
+  val dst = "src/resources/json/fruits.json"
+  Util.saveText(dst, jsonString)
+
+  val jsonText = upickle.default.write(Seq(1, 2, 3))
+  println(jsonText)
+  //TODO use the upickle library to write the Case class to JSON without doing it ourselves
 }
