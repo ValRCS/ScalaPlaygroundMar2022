@@ -9,6 +9,11 @@
       <publish_date>2000-10-01</publish_date>
       <description>An in-depth look at creating applications 
       with XML.</description>
+      <editions>
+         <first><date>2001</date></first>
+         <second><date>2003</date></second>
+         <third><date>2008</date></third>
+      </editions>
    </book>
    <book id="bk102">
       <author>Ralls, Kim</author>

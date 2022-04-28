@@ -1,5 +1,6 @@
 package com.github.ValRCS
 
+import java.util.Calendar
 import scala.xml.{Node, XML}
 
 object Day22ParsingXML extends App {
@@ -10,11 +11,7 @@ object Day22ParsingXML extends App {
   println(xml)
 
   //in Scala 2 i can still make XML directly, - XML is a first class citizen
-  val myOwnXMl = <book id="bk305">
-    <title>Best Fruit Cocktails
-    </title>
-  <author>Doe, John
-  </author></book>
+
 
   println(myOwnXMl)
 
@@ -39,8 +36,9 @@ object Day22ParsingXML extends App {
     val title = (node \ "title").text
     val genre = (node \ "genre").text
     val price = (node \ "price").text.toDouble
-    //TODO add the missing fields
-    BookUnit(id, author, title, genre, price)
+    val publishDate = (node \ "publish_date").text
+    val description = (node \ "description").text
+    BookUnit(id, author, title, genre, price, publishDate, description)
   }
 
   val bookUnits = (for (book <- books) yield getBook(book)).toArray
@@ -52,10 +50,71 @@ object Day22ParsingXML extends App {
   println(genres.mkString(","))
 
   //TODO find the 5 most expensive books
+  val prices = bookUnits.map(_.price)
+  val expBooks = bookUnits.sortBy(_.price)
+  println(s"Here are 5 most expensive books:")
+//  expBooks.reverse.take(5).map(book => s"${book.price} $$ ${book.title} by ${book.author}").foreach(println)
+  //we converted the above line into a method for the case class
+  expBooks.reverse.take(5).map(_.getPriceTitleAuthor()).foreach(println)
   //TODO find the 5 cheapest expensive books
+  expBooks.take(5).map(_.getPriceTitleAuthor()).foreach(println)
 
   //TODO find all romance books
+  val romanceBooks = bookUnits.filter(_.genre == "Romance")
+  println("Here are all romance books:")
+  romanceBooks.foreach(println)
 
   //TODO get all distinct authors in alphabetical order
+  val authors = bookUnits.map(_.author).distinct.sorted
+  println("Here are all distinct authors:")
+  authors.foreach(println)
+
+
+  println(firstBook \ "editions")
+  println((firstBook \ "editions" \ "second" \ "date").text)
+
+  //with \ i only see direct children
+  println(firstBook \ "date")
+
+  //we can use \\ to search recursively for any descendants matching our tag
+  val anyDescendants = (firstBook \\ "date").toArray
+  anyDescendants.foreach(println)
+  val publishingYears = anyDescendants.map(_.text.toInt)
+  println(publishingYears.mkString(","))
+
+  //Saving XML
+
+  val myOwnXMl = <book id="bk305">
+    <title>Best Fruit Cocktails
+    </title>
+    <author>Doe, John
+    </author>
+  <published>Rīga, Čiekurkalns</published>
+  </book>
+
+  scala.xml.XML.save("src/resources/xml/mybook.xml", myOwnXMl)
+
+  println(bookUnits.head.getXML())
+
+  val bookXMLCollections = bookUnits.map(_.getXML())
+
+  val creationDate = "28-04-22"
+  val name = "Valdis"
+  val today = Calendar.getInstance().getTime()
+  print(today)
+
+  //again in Scala 2 XML is first class citizen meaning we do not need any " or anything we just write XML
+  //and we use {myvariable} to include information
+  //here bookXMlCollections is an Array of XMl Nodes and it is automatically expanded no need for you to write a loop or anything
+  val collection = <collection creationDate={today.toString} creator={name}>
+  {bookXMLCollections}
+  </collection>
+
+  println(collection)
+
+  scala.xml.XML.save("src/resources/xml/bookCollection.xml", collection, xmlDecl = true) //if we want to have the header
+
+  //the hard part with XML is that often it has namespaces meaning tags come under different organizations
+  //so theoretically one XML can have multiple someTag under different namespaces
 }
 
