@@ -10,3 +10,7 @@ lazy val root = (project in file("."))
 // https://mvnrepository.com/artifact/com.lihaoyi/upickle
 libraryDependencies += "com.lihaoyi" %% "upickle" % "1.6.0"
 //i am saying I want this library included in my project above
+
+// https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
+//just keep in mind that XML built in support is being slowly moved(depreceated) to external libraries in Scala 3 and beyond
