@@ -64,12 +64,111 @@ WHERE TrackId = 3505;
 --TODO
 --CREATE YOUR OWN genre of music
 
+INSERT INTO genres (Name) 
+VALUES ('Rap Folk');
+
 --CREATE artist Yourself or someone real or imagined
+INSERT INTO artists (Name)
+VALUES ('Folk Vibes');
 --CREATE album
+
+INSERT INTO albums (Title, ArtistId)
+VALUES ('Out there behind the forest',
+(SELECT ArtistId 
+FROM artists a2 
+WHERE a2.Name = 'Folk Vibes'));
+
+SELECT ArtistId 
+FROM artists a2 
+WHERE a2.Name = 'Folk Vibes';
 --CREATE 2 tracks from that album that use your own genre of music
+
+INSERT INTO tracks (Name, AlbumId, MediaTypeId, Milliseconds, UnitPrice, GenreId)
+VALUES ('Red Poppies', (SELECT AlbumId FROM albums WHERE Title = 'Out there behind the forest'), 1, 120895, 0.86, 26),
+('Blue-eyed', (SELECT AlbumId FROM albums WHERE Title = 'Out there behind the forest'), 1, 129330, 0.86, 26);
+
+SELECT * FROM tracks t 
+ORDER BY TrackId  DESC 
+LIMIT 10;
+
+
+SELECT GenreId FROM genres WHERE Name = 'Opera';
+
+UPDATE tracks 
+SET GenreId = (SELECT GenreId FROM genres WHERE Name = 'Opera')
+WHERE Name = 'Red Poppies';
 
 --UPDATE one of the tracks to be opera genre
 --DELETE the opera track 
+DELETE FROM tracks 
+WHERE Name = 'Red Poppies';
+-- as long as there are no other 'Red Poppies' songs..
 
 --SELECT show your track joining it together with genre, album and artist
 --like we did in a previous lecture
+
+SELECT t.Name Song, 
+a.Title Album, 
+a2.Name Artist, 
+g.Name Genre,
+t.Milliseconds ,
+mt.Name Media,
+t.UnitPrice 
+FROM tracks t
+JOIN genres g 
+ON t.GenreId = g.GenreId 
+JOIN albums a 
+ON t.AlbumId = a.AlbumId 
+JOIN artists a2 
+ON a.ArtistId = a2.ArtistId 
+JOIN media_types mt 
+ON t.MediaTypeId = mt.MediaTypeId 
+WHERE t.Name = 'Blue-eyed';
+
+
+-- SO LEFT JOIN will fill NULL values on the right side table
+-- if no match is found
+SELECT
+   artists.ArtistId, 
+   albums.AlbumId
+FROM
+   artists
+LEFT JOIN albums ON
+   albums.ArtistId = artists.ArtistId
+ORDER BY
+   artists.ArtistId;
+   
+  
+  --https://www.sqlitetutorial.net/sqlite-group-by/
+  
+SELECT
+	tracks.albumid,
+	COUNT(trackid) trackCount,
+	SUM(UnitPrice) albumPrice,
+	a.Title Album,
+	a2.Name Artist
+FROM
+	tracks
+JOIN albums a 
+ON a.AlbumId = tracks.albumid 
+JOIN artists a2 
+ON a2.ArtistId = a.ArtistId 
+GROUP BY
+	tracks.albumid
+HAVING albumPrice > 25
+ORDER BY trackCount DESC ; 
+
+SELECT country, COUNT(CustomerId) Customers
+FROM customers
+GROUP BY country
+ORDER BY customers DESC;
+
+SELECT t.GenreId, 
+COUNT(t.TrackId) TracksPerGenre, 
+SUM(t.UnitPrice ) SalesByGenre,
+g2.Name Genre
+FROM tracks t 
+JOIN genres g2 
+ON t.GenreId = g2.GenreId 
+GROUP BY t.GenreId 
+ORDER BY SalesByGenre DESC;
