@@ -5,10 +5,10 @@ LIMIT 20;
 
 --CREATE (in CRUD terminology)
 INSERT INTO artists (Name)
-VALUES ('Valdis Saulespur?ns');
+VALUES ('Valdis Saulespurēns');
 
 UPDATE artists
-SET name = 'R?ta Saulespur?na'
+SET name = 'Rūta Saulespurēna'
 WHERE ArtistId = 277;
 
 UPDATE artists 
