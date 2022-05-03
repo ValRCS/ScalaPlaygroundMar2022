@@ -12,7 +12,7 @@ SET name = 'Rūta Saulespurēna'
 WHERE ArtistId = 277;
 
 UPDATE artists 
-SET name = 'Valdis Saulespur?ns'
+SET name = 'Valdis Saulespurēns'
 WHERE Name GLOB '*Sau*';
  -- so I skip my own name
  -- so limit and order options might not be enabled in your SQLite
@@ -23,6 +23,9 @@ WHERE Name GLOB '*Sau*';
 -- Syntax is very similar
 SELECT * FROM artists a 
 WHERE Name GLOB '*Sau*';
+
+
+
 
 DELETE FROM artists 
 WHERE ArtistId = 277;
@@ -57,3 +60,16 @@ VALUES ('Sitting on a tree',358,1,
 UPDATE tracks 
 SET AlbumId = 348
 WHERE TrackId = 3505;
+
+--TODO
+--CREATE YOUR OWN genre of music
+
+--CREATE artist Yourself or someone real or imagined
+--CREATE album
+--CREATE 2 tracks from that album that use your own genre of music
+
+--UPDATE one of the tracks to be opera genre
+--DELETE the opera track 
+
+--SELECT show your track joining it together with genre, album and artist
+--like we did in a previous lecture
