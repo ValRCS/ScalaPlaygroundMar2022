@@ -69,4 +69,17 @@ object Day25DBConnection extends App {
   genreCollection.take(5).foreach(println)
   //generally you do want to close the database connection
   //it would close here anyways but still safer to explicitly close it when you do not need the connection anymore
+
+
+  //TODO Create Album Case Class with appropriate data types for each field
+  //TODO connect to chinook and extract into Array of Album (using ArrayBuffer to build it up)
+
+  //TODO Create Track Case Class
+  //TODO connect to database and extract into Array of Tracks -
+
+  //Extra Challenge
+  //TODO save all Tracks into CSV - in src/resources/csv/tracks.csv -
+  // results should be very similar or identical to what you get in DBeaver export CSV - tracks_exported.csv
+  //Check Day 20 examples on how we did this
+
 }
