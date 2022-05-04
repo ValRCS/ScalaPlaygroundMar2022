@@ -14,6 +14,10 @@ object Day25DBConnection extends App {
   println(s"Will connect SQlite database at the following url:  $url")
 
   val conn = DriverManager.getConnection(url) //TODO handle exceptions at connection time
+  //https://docs.scala-lang.org/overviews/scala-book/try-catch-finally.html
+  //Alvin has a nice example on how to connect to MySQL - different database but very similar
+  //https://alvinalexander.com/scala/scala-jdbc-connection-mysql-sql-select-example/
+
   println(conn.getClientInfo())
 
   val statement = conn.createStatement() //we create a statement object that will handl sending SQL statements to the DB
