@@ -33,6 +33,18 @@ object Day26Nim extends App {
   var isPlayerATurn = true //so A goes first
 
 
+  def clampMove(move: Int, min:Int, max:Int, verbose: Boolean  = true): Int = {
+    if (move > max) {
+      if (verbose) println(s"$move was too much, you will have to settle for $max")
+      max //return since this is the last line of the function
+    } else if (move < min) {
+      if (verbose) println(s"$move is too little, you will have to settle for $min")
+      min //return
+    } else {
+      move //return
+    }
+  }
+
   //main loop - while there are some matches play on
   //TODO implement PvP - player versus player - computer only checks the rules
   while (currentState > gameEndCondition) {
@@ -41,7 +53,8 @@ object Day26Nim extends App {
     println(s"Currently there are $currentState matches on the table")
     val move = readLine(s"How many matches do you want to take $currentPlayer? (1-3) ").toInt //TODO error checking
     //TODO limit the number of matches according to the rules
-    currentState -= move
+    val safeMove = clampMove(move, minMove, maxMove)
+    currentState -= safeMove
     isPlayerATurn = !isPlayerATurn //toggle trick to change a boolean to reverse version of present
     //play the game
   }
