@@ -43,13 +43,26 @@ class Nim(
 
   //I am removing parameters since showStatus only cares about properties local to this object
   def showStatus():Unit = {
-    if (currentState > 0) {
+    if (currentState > gameEndCondition) {
       println(s"There are $currentState matches left.")
       println(s"It is $currentPlayer's turn.")
     }
     else {
-      println(s"The game has ended. $currentPlayer has won.")
+      println(s"The game has ended. $currentPlayer (same as ${getWinner()} ) has won. ")
+      println(s"Better luck next time ${getLoser()}.")
       //we could calculate the loser's name as well of course
+    }
+  }
+
+  def getWinner():String = {
+    if (isGameActive()) "N/A" // could be empty string
+    else currentPlayer //since currentPlayer with no moves to make is the winner
+  }
+
+  def getLoser():String = {
+    if (isGameActive()) "N/A" // could be empty string
+    else { //game is finished
+      if (isPlayerATurn) playerB else playerA
     }
   }
 
@@ -105,13 +118,14 @@ object Day26Nim extends App {
   //NIM specific TODO
   //setup
   //we will start with 21 matches/tokens
+  val saveDst = "src/resources/nim/scores.csv"
   val startingCount = 21
   val gameEndCondition = 0
   val minMove = 1
   val maxMove = 3
 
   val playerA = readLine("Player A what is your name?")
-  var playerB = readLine("Player B what is your name? (press ENTER for computer")
+  var playerB = readLine("Player B what is your name? (press ENTER for computer) ")
   if (playerB == "") playerB = "COMPUTER" //TODO see if you can do the previos 2 lines at once
 
 
@@ -148,13 +162,15 @@ object Day26Nim extends App {
   //TODO PvC - player versus computer you will need to add some logic to the computer, add more levels
 
   //end cleanup here we just print some game state and congratulations
-  //TODO add saving to Database, stats etc
+
 
 //  val winner = if (isPlayerATurn) playerA else playerB
 //  val loser = if (!isPlayerATurn) playerA else playerB
 //  println(s"Game ended. Congratulations $winner! Better luck next time $loser.")
   nimGame.showStatus()
   nimGame.printMoves()
+
+  Day27Persistence.saveGameResult(saveDst, nimGame.getWinner(), nimGame.getLoser())
   //print game status again
   //TODO implement multiple games
 
