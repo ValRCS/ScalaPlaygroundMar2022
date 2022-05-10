@@ -7,6 +7,9 @@ import java.util.Calendar
 
 object Day27Persistence {
   //we could have also had the saveGameResult method made for Nim class which would be a fine choice
+  //TODO move(refactor) saveGameResult method into Nim class
+  //this means that winner and loser will not be needed as parameters
+
   def saveGameResult(dst:String, winner:String, loser:String) = {
     if (! Files.exists(Paths.get(dst))) {
       println("Saving header since no file exists")
@@ -25,6 +28,15 @@ object Day27Persistence {
       Util.saveText(dst, row, true) //crucial that we use append flag so we do not accidentally overwrite..
       //TODO explore logging solutions such as infamous log4j which make saving similar date more structured
     }
+
+    //TODO
+    //create a method saveGameScore(folder:String = "src/resources/nim", prefix:String = "game", suffix = ".csv"):Unit in Nim class that saves the actual game score as a single game
+    //file should be saved as game_year_month_day_hour_min_second.csv in src/resources/nim
+    //row 1header will be player, move
+    //row2 would be Alice, 1
+    //row3 could be Computer, 2
+    //row4 then Alice, 1
+    //no need to declare winner as we know the last player to move loses
 
   }
 }
