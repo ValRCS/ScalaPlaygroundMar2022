@@ -58,14 +58,18 @@ object Util {
    * @param dstPath - save Path
    * @param text - string to save
    */
-  def saveText(dstPath: String, text: String, append:Boolean=false, verbose:Boolean=false):Unit = {
+  def saveText(dstPath: String,
+               text: String,
+               append:Boolean=false,
+               verbose:Boolean=false,
+               prepend:String="\n"):Unit = {
     //    import java.io.{PrintWriter, File} //explicit import
     if (verbose) println(s"Saving ${text.length} characters to $dstPath")
     //so writing to file can be done either by overwriting the whole file (the default)
     //or by appending to the end of the file
     val fw = new FileWriter(dstPath, append) //so by default old dstPath will be overWritten
     //    val pw = new PrintWriter(new File(dstPath))
-    if (append) fw.write("\n") //TODO think about appending custom header
+    if (append) fw.write(prepend) //by default we are appending "\n"
     fw.write(text)
     fw.close() //when writing it is especially important to close as early as possible
   }
@@ -121,7 +125,7 @@ object Util {
 
   /**
    *
-   * @param filePath
+   * @param filePath - represents OS file path
    * @return true or false whether file exists at the location
    */
   def isFileTHere(filePath:String):Boolean = {
@@ -131,8 +135,8 @@ object Util {
 
   /**
    *
-   * @param lines
-   * @param newLine
+   * @param lines - array of strings
+   * @param newLine - how to join the lines
    * @return
    */
   def getCharacterCount(lines: Array[String], newLine:String="\n"):Int = {
