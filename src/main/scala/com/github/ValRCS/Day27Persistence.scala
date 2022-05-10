@@ -32,6 +32,9 @@ object Day27Persistence {
     //TODO
     //create a method saveGameScore(folder:String = "src/resources/nim", prefix:String = "game", suffix = ".csv"):Unit in Nim class that saves the actual game score as a single game
     //file should be saved as game_year_month_day_hour_min_second.csv in src/resources/nim
+    //some ideas on how to get data info:
+    //https://alvinalexander.com/scala/scala-get-current-date-time-hour-calendar-example/
+    //format of the score should look like the following
     //row 1header will be player, move
     //row2 would be Alice, 1
     //row3 could be Computer, 2
