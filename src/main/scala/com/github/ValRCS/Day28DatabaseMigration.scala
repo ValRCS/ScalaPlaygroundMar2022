@@ -7,6 +7,7 @@ object Day28DatabaseMigration extends App {
   db.migrate()
 
   db.insertResult("Alice", "Bob")
+  db.insertResult("Carol", "Dave")
 
   //cleanup
   db.conn.close()
