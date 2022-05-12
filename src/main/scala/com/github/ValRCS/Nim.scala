@@ -24,6 +24,8 @@ class Nim(
   var currentPlayer: String = if (isPlayerATurn) playerA else playerB
   var movesArray: ArrayBuffer[Int] = ArrayBuffer()
 
+  def getMoves: Array[Int] = movesArray.toArray //again parameterless function
+
 
   def removeMatches(unsafeMove: Int): Int = {
     val safeMove = clampMove(unsafeMove, minMove, maxMove)

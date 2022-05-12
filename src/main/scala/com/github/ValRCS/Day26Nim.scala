@@ -17,6 +17,7 @@ object Day26Nim extends App {
   //TODO add more computer opponents
   //TODO allow more than one game at once
   val saveDst = "src/resources/nim/scores.csv"
+  val db = new NimDB("src/resources/nim/nim.db")
   val startingCount = 21
   val gameEndCondition = 0
   val minMove = 1
@@ -91,7 +92,9 @@ object Day26Nim extends App {
 
   //  Day27Persistence.saveGameResult(saveDst, nimGame.getWinner(), nimGame.getLoser())
   nimGame.saveGameResult(saveDst)
+  db.insertResult(nimGame.getWinner, nimGame.getLoser)
   nimGame.saveGameScore()
+  db.insertFullScore(nimGame.getMoves)
   //print game status again
   //TODO implement multiple games
 
