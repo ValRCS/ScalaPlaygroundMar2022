@@ -95,6 +95,7 @@ object Day26Nim extends App {
   db.insertResult(nimGame.getWinner, nimGame.getLoser)
   nimGame.saveGameScore()
   db.insertFullScore(nimGame.getMoves)
+  db.printTopPlayers()
   //print game status again
   //TODO implement multiple games
 

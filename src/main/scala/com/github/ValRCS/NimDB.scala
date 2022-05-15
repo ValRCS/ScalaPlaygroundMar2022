@@ -1,6 +1,7 @@
 package com.github.ValRCS
 
 import java.sql.{DriverManager, PreparedStatement, ResultSet}
+import scala.collection.mutable.ArrayBuffer
 
 class NimDB(val dbPath: String) {
 
@@ -113,10 +114,13 @@ class NimDB(val dbPath: String) {
 """.stripMargin
     //CURRENT_TIMESTAMP is in SQL standard: https://stackoverflow.com/questions/15473325/inserting-current-date-and-time-in-sqlite-database
 
+    val winnerId = insertNewUser(winner)
+    val loserId = insertNewUser(loser)
     val preparedStmt: PreparedStatement = conn.prepareStatement(insertSql)
 
-    preparedStmt.setString (1, winner)
-    preparedStmt.setString (2, loser)
+
+    preparedStmt.setInt (1, winnerId)
+    preparedStmt.setInt (2, loserId)
     preparedStmt.execute
 
     preparedStmt.close()
@@ -175,6 +179,109 @@ class NimDB(val dbPath: String) {
     for ((move, turn) <- moves.zipWithIndex) {
       insertScore(id, turn, move)
     }
+  }
+
+  /**
+   * Returns user count by that name
+   * @param name user name as string
+   * @return 1 or 0
+   */
+  def getUserCount(name:String):Int = {
+    val sql =
+      """
+        |SELECT COUNT(*) cnt FROM users u
+        |WHERE name = ?;
+        |""".stripMargin
+    val preparedStmt: PreparedStatement = conn.prepareStatement(sql)
+
+    preparedStmt.setString(1, name)
+
+    val rs = preparedStmt.executeQuery
+
+    val cnt = rs.getInt(1) //just the first column not worrying about the column name
+    preparedStmt.close()
+    cnt
+  }
+
+  /**
+   * Returns user id if it exists
+   * @param name - user  name
+   * @return 0 or id
+   */
+  def getUserId(name:String):Int = {
+    if (getUserCount(name) == 0) 0 else {
+      val sql =
+        """
+          |SELECT id cnt FROM users u
+          |WHERE name = ?
+          |LIMIT 1;
+          |""".stripMargin
+      val preparedStmt: PreparedStatement = conn.prepareStatement(sql)
+
+      preparedStmt.setString(1, name)
+
+      val rs = preparedStmt.executeQuery
+
+      val id = rs.getInt(1) //just the first column not worrying about the column name
+      preparedStmt.close()
+      id
+    }
+
+  }
+
+  /**
+   * inserts new user if it does not exists
+   * returns id of new or existing user
+   * @param name
+   * @return
+   */
+  def insertNewUser(name: String):Int = {
+    //if we have no user by this name only then we do anything
+    if (getUserCount(name) == 0) {
+      val sql =
+        """
+          |INSERT INTO users (name, created)
+          |VALUES (?, CURRENT_TIMESTAMP);
+          |""".stripMargin
+
+      val preparedStmt: PreparedStatement = conn.prepareStatement(sql)
+
+      preparedStmt.setString(1, name)
+
+      preparedStmt.execute //not checking for success
+      preparedStmt.close()
+    } else {
+      println(s"User $name already exists, nothing to do here!")
+    }
+    getUserId(name)
+
+  }
+
+  def getTopWinners():Array[Player] = {
+    val sql =
+      """
+        |SELECT u.name, COUNT(winner) wins FROM results r
+        |JOIN users u
+        |ON u.id = r.winner
+        |GROUP BY winner
+        |ORDER BY wins DESC
+        |;
+        |""".stripMargin
+
+    val playerBuffer = ArrayBuffer[Player]() //so we start with an empty buffer to store our rows
+    val statement = conn.createStatement()
+    val rs = statement.executeQuery(sql)
+    while (rs.next()) {
+      val player = Player(rs.getString("name"), wins = rs.getInt("wins"))
+      playerBuffer += player
+    }
+    playerBuffer.toArray //better to return immutable values
+  }
+
+  def printTopPlayers():Unit = {
+    println("Top Players with most wins are:")
+    val topPlayers = getTopWinners()
+    topPlayers.foreach(println)
   }
 
 }
