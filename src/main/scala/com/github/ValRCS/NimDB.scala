@@ -284,4 +284,16 @@ class NimDB(val dbPath: String) {
     topPlayers.foreach(println)
   }
 
+  //TODO
+  //def getTopLosers() just like get TopWinners also return Array[Player] sorted by most losses
+
+  //TODO
+//  def getFullPlayerInfo:Array[Player]  = {
+//    //TODO
+//  }
+  //return Array[Player] with all fields filled out, meaning name, id, wins, losses
+  //You can use getTopWinners and getTopLosers and also getuserId
+  //you can also skip using getUserId and perhaps add id inside getTopWinners or getTopLosers
+  //also it is possible to write just a single SQL query but that is not required
+  //again so simplest will be to merge TopWinners Array and TopLosers array
 }
