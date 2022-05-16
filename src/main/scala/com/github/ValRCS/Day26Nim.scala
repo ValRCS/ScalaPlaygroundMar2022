@@ -36,9 +36,9 @@ object Day26Nim extends App {
   //  var currentState = startingCount
   val isPlayerAStarting = true //so A goes first
 
-  //TODO create a new object holding all the information necessary for a game nim from this class Nim
   val nimGame = new Nim(playerA, playerB, startingCount, gameEndCondition, minMove, maxMove, isPlayerAStarting)
 
+  //TODO more computer levels
   def getComputerMove(): Int = 2 //TODO add more complex logic later
   //computer can be made to play perfectly
   //or we could add some randomness
@@ -65,7 +65,6 @@ object Day26Nim extends App {
   }
 
   //main loop - while there are some matches play on
-  //TODO implement PvP - player versus player - computer only checks the rules
   while (nimGame.isGameActive) {
     //show the game state
     //    println(s"Currently there are $currentState matches on the table")
@@ -79,7 +78,6 @@ object Day26Nim extends App {
     nimGame.removeMatches(move)
     nimGame.nextPlayer()
   }
-  //TODO PvC - player versus computer you will need to add some logic to the computer, add more levels
 
   //end cleanup here we just print some game state and congratulations
 
@@ -96,7 +94,11 @@ object Day26Nim extends App {
   nimGame.saveGameScore()
   db.insertFullScore(nimGame.getMoves)
   db.printTopPlayers()
+  db.printBiggestLosers()
   //print game status again
+
+  db.printAllPlayers()
+
   //TODO implement multiple games
 
 }
