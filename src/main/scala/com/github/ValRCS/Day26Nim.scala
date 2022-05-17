@@ -13,9 +13,6 @@ object Day26Nim extends App {
   //implement basic version of https://en.wikipedia.org/wiki/Nim
   //https://en.wikipedia.org/wiki/Nim#The_21_game
 
-  //TODO move saveing date into database
-  //TODO add more computer opponents
-  //TODO allow more than one game at once
   val saveDst = "src/resources/nim/scores.csv"
   val db = new NimDB("src/resources/nim/nim.db")
   val startingCount = 21
@@ -24,12 +21,11 @@ object Day26Nim extends App {
   val maxMove = 3
 
 
-
-  val playerA = readLine("Player A what is your name?")
+  var playerA = readLine("Player A what is your name?")
   var playerB = readLine("Player B what is your name? (press ENTER for computer) ")
-  if (playerB == "") playerB = "COMPUTER" //TODO see if you can do the previos 2 lines at once
+  if (playerB == "") playerB = "COMPUTER"
 
-  //TODO more computer levels
+
   var computerLevel = 0
   if (playerB == "COMPUTER") {
     computerLevel = getIntegerInput("Please enter computer level (1-3)")
@@ -94,14 +90,21 @@ object Day26Nim extends App {
 
     db.printAllPlayers()
 
-    val nextGameInput = readLine("Do you want to play another game with same players ? (Y/N)")
-    if (nextGameInput.toLowerCase.startsWith("y")) isNewGameNeeded = true
-    else isNewGameNeeded = false
+    val nextGameInput = readLine("Do you want to play another game? (Y/N)")
 
-    //TODO add support for new player names
-    //TODO add changing of computer level if playerb is computer
+    if (nextGameInput.toLowerCase.startsWith("y")) {
+      isNewGameNeeded = true
+      val arePlayersDifferent = readLine("Do you want to change players? (Y/N)")
 
-
+      if (arePlayersDifferent.toLowerCase.startsWith("y")) {
+        playerA = readLine("Player A what is your name?")
+        playerB = readLine("Player B what is your name? (press ENTER for computer) ")
+        if (playerB == "") {
+          playerB = "COMPUTER"
+          computerLevel = getIntegerInput("Please enter computer level (1-3)")
+        }
+      }
+    } else isNewGameNeeded = false
   }
 
   println("Thank you for playing! Hoping to see you again ;)")
