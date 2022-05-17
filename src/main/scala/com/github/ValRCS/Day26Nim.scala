@@ -34,7 +34,26 @@ object Day26Nim extends App {
   //computer can be made to play perfectly
   //or we could add some randomness
 
-
+  //so this function is only inside the outer loop
+  def getHumanMove(currentPlayer:String): Int = {
+    var needsInteger = true //we use this as a flag for our code
+    var myInteger = 0
+    //so we keep going until we get an input which we can cast to integer
+    while (needsInteger) {
+      val moveInput = readLine(s"How many matches do you want to take $currentPlayer? (1-3) ")
+      //https://alvinalexander.com/scala/scala-try-catch-finally-syntax-examples-exceptions-wildcard/
+      try {
+        myInteger = moveInput.toInt //this type Casting will throw an exception on bad input
+        needsInteger = false //IMPORTANT! this line will not execute if error is encountered
+      } catch {
+        //It is considered good practice to catch specific errors relevant to your code
+        case e:NumberFormatException => println(s"That is not a number! + $e") //for users you would not print $e
+        // handling any other exception that might come up
+        case unknown => println("Got this unknown exception we need an integer!: " + unknown)
+      }
+    }
+    myInteger
+  }
 
   var isNewGameNeeded = true
   while(isNewGameNeeded) {
@@ -44,27 +63,7 @@ object Day26Nim extends App {
 
     val nimGame = new Nim(playerA, playerB, startingCount, gameEndCondition, minMove, maxMove, isPlayerAStarting)
 
-    //so this function is only inside the outer loop
-    def getHumanMove(): Int = {
-      //TODO move this to method
-      var needsInteger = true //we use this as a flag for our code
-      var myInteger = 0
-      //so we keep going until we get an input which we can cast to integer
-      while (needsInteger) {
-        val moveInput = readLine(s"How many matches do you want to take ${nimGame.currentPlayer}? (1-3) ")
-        //https://alvinalexander.com/scala/scala-try-catch-finally-syntax-examples-exceptions-wildcard/
-        try {
-          myInteger = moveInput.toInt //this type Casting will throw an exception on bad input
-          needsInteger = false //IMPORTANT! this line will not execute if error is encountered
-        } catch {
-          //It is considered good practice to catch specific errors relevant to your code
-          case e:NumberFormatException => println(s"That is not a number! + $e") //for users you would not print $e
-          // handling any other exception that might come up
-          case unknown => println("Got this unknown exception we need an integer!: " + unknown)
-        }
-      }
-      myInteger
-    }
+
 
     //main loop - while there are some matches play on
     while (nimGame.isGameActive) {
@@ -75,7 +74,7 @@ object Day26Nim extends App {
       val move = if (nimGame.isCurrentPlayerComputer) {
         getComputerMove()
       } else {
-        getHumanMove()
+        getHumanMove(nimGame.currentPlayer)
       }
       nimGame.removeMatches(move)
       nimGame.nextPlayer()
