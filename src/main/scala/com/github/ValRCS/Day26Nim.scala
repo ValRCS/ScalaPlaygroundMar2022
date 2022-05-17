@@ -53,16 +53,7 @@ object Day26Nim extends App {
     myInteger
   }
 
-  var isNewGameNeeded = true
-  while(isNewGameNeeded) {
-    println(s"Player A -  $playerA and Player B - $playerB let us play NIM!")
-
-    val isPlayerAStarting = true //so A goes first
-
-    val nimGame = new Nim(playerA, playerB, startingCount, gameEndCondition, minMove, maxMove, isPlayerAStarting)
-
-
-
+  def runSingleGame(nimGame:Nim, db:NimDB):Unit = {
     //main loop - while there are some matches play on
     while (nimGame.isGameActive) {
       //show the game state
@@ -85,10 +76,21 @@ object Day26Nim extends App {
     db.insertResult(nimGame.getWinner, nimGame.getLoser)
     nimGame.saveGameScore()
     db.insertFullScore(nimGame.getMoves)
-    db.printTopPlayers()
-    db.printBiggestLosers()
+    //    db.printTopPlayers()
+    //    db.printBiggestLosers()
 
     db.printAllPlayers()
+  }
+
+  var isNewGameNeeded = true
+  while(isNewGameNeeded) {
+    println(s"Player A -  $playerA and Player B - $playerB let us play NIM!")
+
+    val isPlayerAStarting = true //so A goes first
+
+    val nimGame = new Nim(playerA, playerB, startingCount, gameEndCondition, minMove, maxMove, isPlayerAStarting)
+
+    runSingleGame(nimGame, db)
 
     val nextGameInput = readLine("Do you want to play another game? (Y/N)")
 
