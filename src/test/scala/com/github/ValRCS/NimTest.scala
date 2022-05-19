@@ -32,5 +32,8 @@ class NimTest extends AnyFunSuite with BeforeAndAfter {
     assert(NimAI.getSmartStrategy(4) === 3)
   }
 
+  //TODO write 3 more tests involving Nim class
+
+  //TODO write a test testing database functionality - reading is one you can test
 
 }

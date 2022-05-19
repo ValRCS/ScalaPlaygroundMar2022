@@ -27,4 +27,7 @@ class UtilTest extends AnyFunSuite {
     val arr = Array[String]()
     assert(Util.getCharacterCount(arr) === 0)
   }
+
+  //TODO write 2 more tests for util methods, you can pick whichever method you want to test
+  //test one method at a time
 }
