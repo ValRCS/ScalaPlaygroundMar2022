@@ -30,4 +30,15 @@ class UtilTest extends AnyFunSuite {
 
   //TODO write 2 more tests for util methods, you can pick whichever method you want to test
   //test one method at a time
+
+  test("getWordCountPerLine"){
+    val arr = Array("My name is Yana", "Today is a good day for some unit tests")
+    assert(Util.getWordCountPerLine(arr) === Array(4,9))
+  }
+
+  test("getWordCountPerLine.blank"){
+    val arr = Array[String]()
+    assert(Util.getWordCountPerLine(arr) === Array())
+  }
+
 }

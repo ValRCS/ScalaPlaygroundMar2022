@@ -30,6 +30,24 @@ class NimDB(val dbPath: String) {
     statement.executeBatch()  //more efficient than 3 single queries
   }
 
+  //this is a dangerous method of course
+  def dropTables(tables:Array[String]=Array("users","results","scores")):Int = {
+    val statement = conn.createStatement()
+    for (table <- tables) {
+      //obviously dangerous if we allow someone to drop arbitrary tables
+      val sql =
+        s"""
+          |DROP TABLE
+          |IF EXISTS
+          |$table;
+          |""".stripMargin
+      statement.addBatch(sql)
+    }
+
+    statement.executeBatch()
+    tables.length //i return how many tables we dropped
+  }
+
   /**
    * Perform table migration in a new installation, does nothing otherwise
    */

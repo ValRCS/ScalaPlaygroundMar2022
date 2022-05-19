@@ -33,6 +33,15 @@ class NimTest extends AnyFunSuite with BeforeAndAfter {
   }
 
   //TODO write 3 more tests involving Nim class
+  test("Nim.nextPlayer") {
+
+    assert(nim.nextPlayer() === "COMPUTER")
+    assert(nim.nextPlayer() === "Valdis")
+  }
+
+  test("Nim.isGameActive") {
+    assert(nim.isGameActive === true)
+  }
 
   //TODO write a test testing database functionality - reading is one you can test
 
