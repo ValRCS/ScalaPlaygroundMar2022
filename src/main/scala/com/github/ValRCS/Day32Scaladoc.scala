@@ -26,4 +26,6 @@ object Day32Scaladoc extends App {
    * @example {{{val myMax = Day32Scaladoc.max(7, 12)}}}
    */
   def max(a:Int, b:Int): Int = if (a > b) a else b
+
+  println(s"2+2=${add(2,2)}")
 }
