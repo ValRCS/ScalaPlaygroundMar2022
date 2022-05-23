@@ -23,7 +23,7 @@ object Util {
   }
 
   /**
-   * Utility function to find delta from starting and stop time
+   * finds delta from starting and stop time
    *
    * @param t0 - starting time
    * @param t1 - stop time
@@ -32,6 +32,7 @@ object Util {
   def deltaMs(t0: Long, t1: Long, precision: Int = 3): Double = {
     myRound((t1 - t0) / 1_000_000.0, precision) //by default it will be 3
   }
+
 
   def printDeltaMs(t0: Long, t1: Long, taskName: String = "", precision: Int = 3): Unit = {
     val ms = deltaMs(t0, t1, precision = precision)
@@ -108,7 +109,7 @@ object Util {
 
   /**
    * get a list of Files
-   * adopted from https://alvinalexander.com/scala/how-to-list-files-in-directory-filter-names-scala/
+   * @see adopted from [[https://alvinalexander.com/scala/how-to-list-files-in-directory-filter-names-scala/]]
    * @param dir - listing path
    * @param regex - match to filter by, default is all files of name length 1 or more
    * @return - returns list of Files
@@ -124,9 +125,9 @@ object Util {
   }
 
   /**
-   *
+   * returns true if file exists at the location, false otherwise
    * @param filePath - represents OS file path
-   * @return true or false whether file exists at the location
+   * @return
    */
   def isFileTHere(filePath:String):Boolean = {
     val path = Paths.get(filePath)

@@ -22,7 +22,7 @@ class Nim(
   println("Created a new game object of NIM")
   var currentState: Int = startingCount
   var currentPlayer: String = if (isPlayerATurn) playerA else playerB
-  var movesArray: ArrayBuffer[Int] = ArrayBuffer()
+  val movesArray = ArrayBuffer[Int]()
 
   def getMoves: Array[Int] = movesArray.toArray //again parameterless function
 

@@ -54,7 +54,7 @@ object Day26Nim extends App {
         //It is considered good practice to catch specific errors relevant to your code
         case e:NumberFormatException => println(s"That is not a number! + $e") //for users you would not print $e
         // handling any other exception that might come up
-        case unknown => println("Got this unknown exception we need an integer!: " + unknown)
+        case unknown:Throwable => println("Got this unknown exception we need an integer!: " + unknown)
       }
     }
     myInteger
